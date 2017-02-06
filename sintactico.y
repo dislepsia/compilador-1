@@ -3,14 +3,15 @@
 #include <stdlib.h>
 #include <string.h>
 extern int yylineno;
+extern char *yytext;
 
 %}
 
-
 %union{
-    char id[50];
-    float f;
+ char s[20];
 }
+
+
 %token IF ELSE WHILE DEFVAR ENDDEF PERCENT INLIST
 %token ENTERO BINA REAL STRING ID TIPO
 %token P_A P_C L_A L_C FL DP
@@ -60,10 +61,10 @@ termino    : termino OP_MUL factor          {printf("termino    : termino OP_MUL
            ;
 factor     : P_A expresion P_C              {printf("factor : P_A expresion P_C  \n");}
            | OP_RES factor                  {printf("factor : OP_RES factor      \n");}
-           | ENTERO                         {printf("factor : ENTERO             \n");}
-           | REAL                           {printf("factor : REAL               \n");}
-           | BINA                           {printf("factor : BINA               \n");}
-           | ID                             {printf("factor : ID                 \n");}
+           | ENTERO                         {printf("factor : ENTERO: %s             \n" , yylval.s);}
+           | REAL                           {printf("factor : REAL: %s               \n" , yylval.s);}
+           | BINA                           {printf("factor : BINA: %s               \n" , yylval.s);}
+           | ID                             {printf("factor : ID: %s                \n", yylval.s);}
            ;
 
 

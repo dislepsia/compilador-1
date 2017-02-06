@@ -28,10 +28,10 @@ DEFVAR      {return DEFVAR;}
 ENDDEF      {return ENDDEF;}
 PERCENT     {return PERCENT;}
 INLIST      {return INLIST;}
-{ENTERO}    {return ENTERO;}
-{BINA}       {return BINA;}
-{REAL}      {return REAL;}
-{STRING}    {return STRING;}
+{ENTERO}    {strcpy(yylval.s, yytext);return ENTERO;}
+{BINA}       {strcpy(yylval.s, yytext);return BINA;}
+{REAL}      {strcpy(yylval.s, yytext);return REAL;}
+{STRING}    {strcpy(yylval.s, yytext);return STRING;}
 ":"         {return DP;}
 ";"         {return FL;}
 "("         {return P_A;}
@@ -53,7 +53,7 @@ DIV         {return DIV;}
 "=="        {return CMP_IGUAL;}
 ":="        {return ASIG;}
 {COMENTARIO} {;}
-{ID}        {return ID;}
+{ID}        {strcpy(yylval.s, yytext);return ID;}
 float|int|string   {return TIPO;}
 [\n]        {;}
 [\t]        {;}
@@ -61,3 +61,4 @@ float|int|string   {return TIPO;}
 
 %%
 // [0-9]+(\.[0-9]+)?  {yylval.f = atof(yytext); return NUM;}
+// strcpy(yylval.s, yytext);
