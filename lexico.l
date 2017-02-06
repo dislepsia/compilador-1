@@ -13,7 +13,7 @@ DIGITO			[0-9]
 LETRA			[a-zA-Z]
 PREFBIN        0b|0B|Ob|OB|ob|oB
 POSTBIN        [01]
-BIN            {PREBIN}{POSTBIN}+
+BIN            {PREFBIN}{POSTBIN}+
 ENTERO          -?{SINCERO}+{DIGITO}*|0
 REAL            -?{DIGITO}*[.]{DIGITO}*
 STRING         ["]([^"]|\\.)*["]
@@ -32,12 +32,14 @@ INLIST      {return INLIST;}
 {BIN}       {return BIN;}
 {REAL}      {return REAL;}
 {STRING}    {return STRING;}
+":"         {return DP;}
+";"         {return FL;}
 "("         {return P_A;}
 ")"         {return P_C;}
 "{"         {return L_A;}
 "}"         {return L_C;}
 "++"        {return OP_CONCAT;}
-[+][^+]*    {return OP_SUM;}
+"+"   {return OP_SUM;}
 "-"         {return OP_RES;}
 "/"         {return OP_DIV;}
 "*"         {return OP_MUL;}
@@ -51,7 +53,8 @@ DIV         {return DIV;}
 "=="        {return CMP_IGUAL;}
 ":="        {return ASIG;}
 {COMENTARIO} {;}
-
+{ID}        {return ID;}
+float|int|string   {return TIPO;}
 [\n]        {;}
 [\t]        {;}
 

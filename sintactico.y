@@ -12,8 +12,8 @@
     float f;
 }
 %token IF ELSE WHILE DEFVAR ENDDEF PERCENT INLIST
-%token ENTERO BIN REAL STRING
-%token P_A P_C L_A L_C
+%token ENTERO BIN REAL STRING ID TIPO
+%token P_A P_C L_A L_C FL DP
 %token OP_CONCAT OP_SUM OP_RES OP_DIV OP_MUL MOD DIV
 %token CMP_MAY CMP_MEN CMP_MAYI CMP_MENI CMP_DIST CMP_IGUAL
 %token ASIG
@@ -75,7 +75,7 @@ int main(int argc,char *argv[]){
     return 0;
 }
 
-void yyerror(char *msg){
+int yyerror(char *msg){
     fprintf(stderr, "%s\n", msg);
     exit(1);
 }
