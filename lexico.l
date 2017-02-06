@@ -8,15 +8,53 @@
 %option noyywrap
 %option yylineno
 
-
+SINCERO         [1-9]
 DIGITO			[0-9]
 LETRA			[a-zA-Z]
+PREFBIN        0b|0B|Ob|OB|ob|oB
+POSTBIN        [01]
+BIN            {PREBIN}{POSTBIN}+
+ENTERO          -?{SINCERO}+{DIGITO}*|0
+REAL            -?{DIGITO}*[.]{DIGITO}*
+STRING         ["]([^"]|\\.)*["]
+COMENTARIO     [*][/][^/]*[/]+([^*/][^/]*[/]+)*[*]
+ID          {LETRA}({LETRA}|{DIGITO}|[_-]
+%%
 
+if          {return IF;}
+else        {return ELSE;}
+while       {return WHILE;}
+DEFVAR      {return DEFVAR;}
+ENDDEF      {return ENDDEF;}
+PERCENT     {return PERCENT;}
+INLIST      {return INLIST;}
+{ENTERO}    {return ENTERO;}
+{BIN}       {return BIN;}
+{REAL}      {return REAL;}
+{STRING}    {return STRING;}
+"("         {return P_A;}
+")"         {return P_C;}
+"{"         {return L_A;}
+"}"         {return L_C;}
+"++"        {return OP_CONCAT;}
+[+][^+]*    {return OP_SUM;}
+"-"         {return OP_RES;}
+"/"         {return OP_DIV;}
+"*"         {return OP_MUL;}
+MOD         {return MOD;}
+DIV         {return DIV;}
+">"         {return CMP_MAY;}
+"<"         {return CMP_MEN;}
+">="        {return CMP_MAYI;}
+"<="        {return CMP_MENI;}
+"!="        {return CMP_DIST;}
+"=="        {return CMP_IGUAL;}
+":="        {return ASIG;}
+{COMENTARIO} {;}
+
+[\n]        {;}
+[\t]        {;}
 
 
 %%
-
-[0-9]+(\.[0-9]+)?  {yylval.f = atof(yytext); return NUM;}
-
-
-%%
+// [0-9]+(\.[0-9]+)?  {yylval.f = atof(yytext); return NUM;}
