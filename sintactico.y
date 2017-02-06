@@ -25,7 +25,7 @@ programa    : sentencias        {printf("Compila OK \n");}
 sentencias  : sentencias sentencia  {printf("sentencias  : sentencias sentencia\n");}
             | sentencia             {printf("sentencias  : sentencia \n");}
 sentencia   : asignacion FL         {printf("sentencias  : asignacion FL\n");}
-            | iteracion             {printf("sentencias  : iteracion n");}
+            | iteracion             {printf("sentencias  : iteracion \n");}
             | decision              {printf("sentencias  : decision\n");}
             | bloque_dec            {printf("sentencias  : sentencias bloque_dec\n");}
             ;
