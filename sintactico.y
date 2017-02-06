@@ -11,9 +11,11 @@
     char id[50];
     float f;
 }
-%token  FL
-%token  <f> NUM
-%token <id> ID
+%token IF ELSE WHILE DEFVAR ENDDEF PERCENT INLIST ENTERO BIN REAL STRING P_A P_C L_A L_C
+%token OP_CONCAT OP_SUM OP_RES OP_DIV OP_MUL MOD DIV
+%token CMP_MAY CMP_MEN CMP_MAYI CMP_MENI CMP_DIST CMP_IGUAL
+%token ASIG
+
 %type
 
 
