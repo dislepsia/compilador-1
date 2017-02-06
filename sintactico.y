@@ -11,12 +11,12 @@
     char id[50];
     float f;
 }
-%token IF ELSE WHILE DEFVAR ENDDEF PERCENT INLIST ENTERO BIN REAL STRING P_A P_C L_A L_C
+%token IF ELSE WHILE DEFVAR ENDDEF PERCENT INLIST
+%token ENTERO BIN REAL STRING
+%token P_A P_C L_A L_C
 %token OP_CONCAT OP_SUM OP_RES OP_DIV OP_MUL MOD DIV
 %token CMP_MAY CMP_MEN CMP_MAYI CMP_MENI CMP_DIST CMP_IGUAL
 %token ASIG
-
-%type
 
 
 %%
@@ -43,6 +43,13 @@ declaraciones: declaraciones declaracion
 declaracion: ID DP TIPO
            ;
 asignacion : ID ASIG expresion
+           ;
+condicion  : expresion CMP_MAY expresion
+           | expresion CMP_MEN expresion
+           | expresion CMP_MAYI expresion
+           | expresion CMP_MENI expresion
+           | expresion CMP_DIST expresion
+           | expresion CMP_IGUAL expresion
            ;
 expresion  : expresion OP_SUM termino
            | expresion OP_RES termino
