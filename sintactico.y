@@ -22,48 +22,48 @@ extern int yylineno;
 %%
 programa    : sentencias        {printf("Compila OK \n");}
             ;
-sentencias  : sentencias sentencia
-            | sentencia
-sentencia   : asignacion FL
-            | iteracion
-            | decision
-            | bloque_dec
+sentencias  : sentencias sentencia  {printf("sentencias  : sentencias sentencia\n");}
+            | sentencia             {printf("sentencias  : sentencia \n");}
+sentencia   : asignacion FL         {printf("sentencias  : asignacion FL\n");}
+            | iteracion             {printf("sentencias  : iteracion n");}
+            | decision              {printf("sentencias  : decision\n");}
+            | bloque_dec            {printf("sentencias  : sentencias bloque_dec\n");}
             ;
-decision   : IF P_A condicion P_C L_A sentencias L_C
-           | IF P_A condicion P_C L_A sentencias L_C ELSE L_A sentencias L_C
+decision   : IF P_A condicion P_C L_A sentencias L_C {printf("decision   : IF P_A condicion P_C L_A sentencias L_C\n");}
+           | IF P_A condicion P_C L_A sentencias L_C ELSE L_A sentencias L_C {printf("decision   : IF P_A condicion P_C L_A sentencias L_C ELSE L_A sentencias L_C\n");}
            ;
-iteracion  : WHILE P_A condicion P_C L_A sentencias L_C
+iteracion  : WHILE P_A condicion P_C L_A sentencias L_C {printf("iteracion  : WHILE P_A condicion P_C L_A sentencias\n");}
            ;
-bloque_dec : DEFVAR declaraciones ENDDEF
+bloque_dec : DEFVAR declaraciones ENDDEF {printf(" bloque_dec : DEFVAR declaraciones ENDDEF \n ");}
            ;
-declaraciones: declaraciones declaracion
-           | declaracion
+declaraciones: declaraciones declaracion    {printf("declaraciones: declaraciones declaracion \n");}
+           | declaracion                    {printf("declaraciones: declaraciones  \n");}
            ;
-declaracion: ID DP TIPO
+declaracion: ID DP TIPO                     {printf("declaracion: ID DP TIPO \n");}
            ;
-asignacion : ID ASIG expresion
+asignacion : ID ASIG expresion              {printf("asignacion : ID ASIG expresion \n");}
            ;
-condicion  : expresion CMP_MAY expresion
-           | expresion CMP_MEN expresion
-           | expresion CMP_MAYI expresion
-           | expresion CMP_MENI expresion
-           | expresion CMP_DIST expresion
-           | expresion CMP_IGUAL expresion
+condicion  : expresion CMP_MAY expresion    {printf("condicion  : expresion CMP_MAY expresion \n");}
+           | expresion CMP_MEN expresion    {printf("condicion  | expresion CMP_MEN expresion \n");}
+           | expresion CMP_MAYI expresion   {printf("condicion  :  \n");}
+           | expresion CMP_MENI expresion   {printf("condicion  : CMP_MENI expresion   \n");}
+           | expresion CMP_DIST expresion   {printf("condicion  : CMP_DIST expresion   \n");}
+           | expresion CMP_IGUAL expresion  {printf("condicion  : CMP_IGUAL expresion  \n");}
            ;
-expresion  : expresion OP_SUM termino
-           | expresion OP_RES termino
-           | termino
+expresion  : expresion OP_SUM termino       {printf("expresion  : expresion OP_SUM termino \n");}
+           | expresion OP_RES termino       {printf("expresion  : expresion OP_RES termino\n");}
+           | termino                        {printf("expresion  : termino                 \n");}
            ;
-termino    : termino OP_MUL factor
-           | termino OP_DIV factor
-           | factor
+termino    : termino OP_MUL factor          {printf("termino    : termino OP_MUL factor \n");}
+           | termino OP_DIV factor          {printf("termino    : termino OP_DIV factor \n");}
+           | factor                         {printf("termino    : factor \n");}
            ;
-factor     : P_A expresion P_C
-           | OP_RES factor
-           | ENTERO
-           | REAL
-           | BINA
-           | ID
+factor     : P_A expresion P_C              {printf("factor : P_A expresion P_C  \n");}
+           | OP_RES factor                  {printf("factor : OP_RES factor      \n");}
+           | ENTERO                         {printf("factor : ENTERO             \n");}
+           | REAL                           {printf("factor : REAL               \n");}
+           | BINA                           {printf("factor : BINA               \n");}
+           | ID                             {printf("factor : ID                 \n");}
            ;
 
 
