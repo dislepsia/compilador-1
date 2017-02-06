@@ -20,7 +20,9 @@ STRING         ["]([^"]|\\.)*["]
 COMENTARIO     [*][/][^/]*[/]+([^*/][^/]*[/]+)*[*]
 ID          {LETRA}({LETRA}|{DIGITO}|[_-])*
 %%
-
+float       {return FLOAT;}
+int         {return INT;}
+string       {return STRING;}
 if          {return IF;}
 else        {return ELSE;}
 while       {return WHILE;}
@@ -31,7 +33,8 @@ INLIST      {return INLIST;}
 {ENTERO}    {strcpy(yylval.s, yytext);return ENTERO;}
 {BINA}       {strcpy(yylval.s, yytext);return BINA;}
 {REAL}      {strcpy(yylval.s, yytext);return REAL;}
-{STRING}    {strcpy(yylval.s, yytext);return STRING;}
+{STRING}    {strcpy(yylval.s, yytext);return STRING_CONST;}
+","         {return CO;}
 ":"         {return DP;}
 ";"         {return FL;}
 "("         {return P_A;}
@@ -39,7 +42,7 @@ INLIST      {return INLIST;}
 "{"         {return L_A;}
 "}"         {return L_C;}
 "++"        {return OP_CONCAT;}
-"+"   {return OP_SUM;}
+"+"         {return OP_SUM;}
 "-"         {return OP_RES;}
 "/"         {return OP_DIV;}
 "*"         {return OP_MUL;}
@@ -54,7 +57,7 @@ DIV         {return DIV;}
 ":="        {return ASIG;}
 {COMENTARIO} {;}
 {ID}        {strcpy(yylval.s, yytext);return ID;}
-float|int|string   {return TIPO;}
+
 [\n]        {;}
 [\t]        {;}
 

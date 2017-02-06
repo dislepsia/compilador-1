@@ -13,8 +13,9 @@ extern char *yytext;
 
 
 %token IF ELSE WHILE DEFVAR ENDDEF PERCENT INLIST
-%token ENTERO BINA REAL STRING ID TIPO
-%token P_A P_C L_A L_C FL DP
+%token REAL BINA ENTERO ID STRING_CONST
+%token FLOAT INT STRING
+%token P_A P_C L_A L_C FL DP CO
 %token OP_CONCAT OP_SUM OP_RES OP_DIV OP_MUL MOD DIV
 %token CMP_MAY CMP_MEN CMP_MAYI CMP_MENI CMP_DIST CMP_IGUAL
 %token ASIG
@@ -38,9 +39,19 @@ iteracion  : WHILE P_A condicion P_C L_A sentencias L_C {printf("iteracion  : WH
 bloque_dec : DEFVAR declaraciones ENDDEF {printf(" bloque_dec : DEFVAR declaraciones ENDDEF \n ");}
            ;
 declaraciones: declaraciones declaracion    {printf("declaraciones: declaraciones declaracion \n");}
-           | declaracion                    {printf("declaraciones: declaraciones  \n");}
+           | declaracion                    {printf("declaraciones: declaracion  \n");}
            ;
-declaracion: ID DP TIPO                     {printf("declaracion: ID DP TIPO \n");}
+declaracion: lista_variables DP lista_tipos_datos {printf("declaracion: lista_variables DP lista_tipos_datos \n");}
+           ;
+lista_tipos_datos   : lista_tipos_datos CO tipo_dato {printf(" lista_tipos_datos   : lista_tipos_datos CO tipo_dato \n");}
+                    | tipo_dato {printf(" lista_tipos_datos   : tipo_dato \n");}
+                    ;
+lista_variables     : lista_variables CO ID { printf("lista_variables     : lista_variables CO ID \n");}
+                    | ID { printf("lista_variables     : ID \n");}
+                    ;
+tipo_dato  : STRING { printf("tipo_dato  : STRING \n");}
+           | FLOAT  { printf("tipo_dato  : FLOAT \n");}
+           | INT    { printf("tipo_dato  : INT \n");}
            ;
 asignacion : ID ASIG expresion              {printf("asignacion : ID ASIG expresion \n");}
            ;
@@ -77,6 +88,6 @@ int main(int argc,char *argv[]){
 }
 
 int yyerror(char *msg){
-    fprintf(stderr, "At line %d %s\n", yylineno, msg);
+    fprintf(stderr, "At line %d %s in text: %s\n", yylineno, msg, yytext);
     exit(1);
 }
