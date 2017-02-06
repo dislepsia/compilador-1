@@ -18,7 +18,7 @@ ENTERO          -?{SINCERO}+{DIGITO}*|0
 REAL            -?{DIGITO}*[.]{DIGITO}*
 STRING         ["]([^"]|\\.)*["]
 COMENTARIO     [*][/][^/]*[/]+([^*/][^/]*[/]+)*[*]
-ID          {LETRA}({LETRA}|{DIGITO}|[_-]
+ID          {LETRA}({LETRA}|{DIGITO}|[_-])*
 %%
 
 if          {return IF;}
