@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+extern int yylineno;
 
 %}
 
@@ -76,6 +76,6 @@ int main(int argc,char *argv[]){
 }
 
 int yyerror(char *msg){
-    fprintf(stderr, "%s\n", msg);
+    fprintf(stderr, "At line %d %s\n", yylineno, msg);
     exit(1);
 }
