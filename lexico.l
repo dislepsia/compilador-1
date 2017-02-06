@@ -13,7 +13,7 @@ DIGITO			[0-9]
 LETRA			[a-zA-Z]
 PREFBIN        0b|0B|Ob|OB|ob|oB
 POSTBIN        [01]
-BIN            {PREFBIN}{POSTBIN}+
+BINA            {PREFBIN}{POSTBIN}+
 ENTERO          -?{SINCERO}+{DIGITO}*|0
 REAL            -?{DIGITO}*[.]{DIGITO}*
 STRING         ["]([^"]|\\.)*["]
@@ -29,7 +29,7 @@ ENDDEF      {return ENDDEF;}
 PERCENT     {return PERCENT;}
 INLIST      {return INLIST;}
 {ENTERO}    {return ENTERO;}
-{BIN}       {return BIN;}
+{BINA}       {return BINA;}
 {REAL}      {return REAL;}
 {STRING}    {return STRING;}
 ":"         {return DP;}

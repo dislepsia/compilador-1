@@ -12,7 +12,7 @@ extern int yylineno;
     float f;
 }
 %token IF ELSE WHILE DEFVAR ENDDEF PERCENT INLIST
-%token ENTERO BIN REAL STRING ID TIPO
+%token ENTERO BINA REAL STRING ID TIPO
 %token P_A P_C L_A L_C FL DP
 %token OP_CONCAT OP_SUM OP_RES OP_DIV OP_MUL MOD DIV
 %token CMP_MAY CMP_MEN CMP_MAYI CMP_MENI CMP_DIST CMP_IGUAL
@@ -20,20 +20,19 @@ extern int yylineno;
 
 
 %%
-programa: programa linea
-        | linea
-linea   : asignacion FL
-        | iteracion
-        | decision
-        | bloque_dec
-        | linea asignacion FL
-        | linea iteracion
-        | linea decision
-        ;
-decision   : IF P_A condicion P_C L_A linea L_C
-           | IF P_A condicion P_C L_A linea L_C ELSE L_A linea L_C
+programa    : sentencias        {printf("Compila OK \n");}
+            ;
+sentencias  : sentencias sentencia
+            | sentencia
+sentencia   : asignacion FL
+            | iteracion
+            | decision
+            | bloque_dec
+            ;
+decision   : IF P_A condicion P_C L_A sentencias L_C
+           | IF P_A condicion P_C L_A sentencias L_C ELSE L_A sentencias L_C
            ;
-iteracion  : WHILE P_A condicion P_C L_A linea L_C
+iteracion  : WHILE P_A condicion P_C L_A sentencias L_C
            ;
 bloque_dec : DEFVAR declaraciones ENDDEF
            ;
@@ -63,6 +62,7 @@ factor     : P_A expresion P_C
            | OP_RES factor
            | ENTERO
            | REAL
+           | BINA
            | ID
            ;
 
