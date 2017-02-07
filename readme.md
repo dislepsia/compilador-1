@@ -2,7 +2,7 @@
 
 ## Objetivos:
 
-Cumplir con la primer entrega del TP.
+###Cumplir con la primer entrega del TP.
 
 1. Flex y Bison de la gramática
 2. Imprimer reglas por pantalla
@@ -10,16 +10,16 @@ Cumplir con la primer entrega del TP.
 4. Crear y dumpear a un archivo la tabla de símbolos.
 5. Validar longitud de nombre de variables.
 
-Pendientes:
+###Pendientes:
 
-Agregar constantes strings a la gramatica
-Agregar asignacion de constantes strings a la gramatica
-Agregar concatenacion de strings a la gramatica
-Agregar write a la gramatica
-Validar constantes strings
-Agregar funciones especiales a la gramática
-Validar tipo en asignaciones
-Verificar balanceo en las asignaciones
-Validar tipo en las asignaciones
-Validar tipo en las operaciones. (que el + no pueda sumar strings, y el que el ++ no sume números, entre otros)
-Tabla de Simbolos
+1.Agregar constantes strings a la gramatica
+2.Agregar asignacion de constantes strings a la gramatica
+3.Agregar concatenacion de strings a la gramatica
+4.Agregar write a la gramatica
+5.Validar constantes strings
+6.Agregar funciones especiales a la gramática
+7.Validar tipo en asignaciones
+8.Verificar balanceo en las asignaciones
+9.Validar tipo en las asignaciones
+10.Validar tipo en las operaciones. (que el + no pueda sumar strings, y el que el ++ no sume números, entre otros)
+11.Tabla de Simbolos
