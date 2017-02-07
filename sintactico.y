@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+#include <float.h>
+
 extern int yylineno;
 extern char *yytext;
 
@@ -9,7 +12,7 @@ extern char *yytext;
 /* funciones para validacion (cabeceras)*/
 
 int validarInt(char entero[]);
-
+int validarFloat(char flotante[]);
 
 
 /* fin de funciones para validacion */
@@ -104,7 +107,7 @@ factor
     : P_A expresion P_C              {printf("factor : P_A expresion P_C  \n");}
     | OP_RES factor                  {printf("factor : OP_RES factor      \n");}
     | ENTERO                         { validarInt(yylval.s) ;printf("factor : ENTERO: %s             \n" , yylval.s);}
-    | REAL                           {printf("factor : REAL: %s               \n" , yylval.s);}
+    | REAL                           {validarFloat(yylval.s);printf("factor : REAL: %s               \n" , yylval.s);}
     | BINA                           {printf("factor : BINA: %s               \n" , yylval.s);}
     | ID                             {printf("factor : ID: %s                \n", yylval.s);}
     ;
@@ -129,6 +132,25 @@ int validarInt(char entero[]) {
     }
 
 }
+
+int validarFloat(char flotante[]) {
+    double casteado = atof(flotante);
+    casteado = fabs(casteado);
+    char msg[300];
+
+    if(casteado < FLT_MIN || casteado > FLT_MAX) {
+        sprintf(msg, "ERROR: Float %f fuera de rango. Debe estar entre [1.17549e-38; 3.40282e38]\n", casteado);
+        yyerror(msg);
+    } else {
+        //guardarenTS
+        //printf solo para pruebas:
+    //    printf("Float ok! %f \n", casteado);
+        return 0;
+
+    }
+
+}
+
 
 /* fin de funciones para validacion */
 

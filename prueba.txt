@@ -2,7 +2,7 @@ DEFVAR
 ab : float
 v1,v2 : float, string
 ENDDEF
-a:= 326000;
+a:= 123456780123456780123456.123123123;
 DEFVAR
 ab : float
 v1,v2 : float, string
