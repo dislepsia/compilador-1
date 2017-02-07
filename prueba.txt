@@ -3,7 +3,19 @@ ab : float
 v1,v2 : float, string
 ENDDEF
 a:= 0b111111111111111;
-DEFVAR
-ab : float
-v1,v2 : float, string
-ENDDEF
+if ( a > 1 ) {
+   a:= 1233;
+   while ( 5 > 1 ){
+       a:= 213;
+       }
+
+
+} else {
+
+    if ( 4 > a ){
+        b:= "asdf";
+        var1 := "asdfgasdg" + b ;
+
+    }
+
+}

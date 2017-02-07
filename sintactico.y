@@ -40,7 +40,7 @@ int validarBin(char binario[]);
 raiz: programa {printf("Compila OK \n");}
     ;
 programa
-    :bloque_dec sentencias {printf("programa : bloque_dec sentencias");}
+    :bloque_dec sentencias {printf("programa : bloque_dec sentencias \n");}
     | sentencias    {printf("programa : sentencias \n");}
     | bloque_dec {printf("programa: bloque_dec \n");}
     ;
@@ -85,6 +85,13 @@ iteracion
     ;
 asignacion
     : ID ASIG expresion              {printf("asignacion : ID ASIG expresion \n");}
+    | ID ASIG concatenacion          {printf("asignacion : ID ASIG concatenacion \n");}
+    ;
+concatenacion
+    : ID OP_CONCAT ID
+    | ID OP_CONCAT constante
+    | constante OP_CONCAT ID
+    | constante OP_CONCAT constante
     ;
 condicion
     : expresion CMP_MAY expresion    {printf("condicion  : expresion CMP_MAY expresion \n");}
@@ -106,13 +113,16 @@ termino
     ;
 factor
     : P_A expresion P_C              {printf("factor : P_A expresion P_C  \n");}
-    | OP_RES factor                  {printf("factor : OP_RES factor      \n");}
-    | ENTERO                         { validarInt(yylval.s) ;printf("factor : ENTERO: %s             \n" , yylval.s);}
-    | REAL                           {validarFloat(yylval.s);printf("factor : REAL: %s               \n" , yylval.s);}
-    | BINA                           {validarBin(yylval.s);printf("factor : BINA: %s               \n" , yylval.s);}
     | ID                             {printf("factor : ID: %s                \n", yylval.s);}
+    | constante
     ;
 
+constante
+    : ENTERO                         {validarInt(yylval.s) ;printf("factor : ENTERO: %s             \n" , yylval.s);}
+    | REAL                           {validarFloat(yylval.s);printf("factor : REAL: %s               \n" , yylval.s);}
+    | BINA                           {validarBin(yylval.s);printf("factor : BINA: %s               \n" , yylval.s);}
+    | STRING_CONST
+    ;
 %%
 
 
