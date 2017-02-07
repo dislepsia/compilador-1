@@ -1,4 +1,6 @@
 DEFVAR
-ab : float
-v1,v2 : float, string
+a , b , c: int,float, string
+a , b , c: int,float, string
+a , b , c: int,float, string
+a , b    : int,float, string
 ENDDEF

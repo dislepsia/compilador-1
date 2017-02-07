@@ -16,6 +16,12 @@ int validarFloat(char flotante[]);
 int validarBin(char binario[]);
 int validarString(char cadena[]);
 
+int longListaId = 0;   //estas variables se usan para ver el balanceo del defvar
+int longListaTipos = 0;//estas variables se usan para ver el balanceo del defvar
+                     // se van a ir sumando y cuando se ejecuta la regla lv : lt
+                     // compara que haya la misma cantidad de los dos lados
+int verificarBalanceo();
+
 
 /* fin de funciones para validacion */
 
@@ -53,15 +59,15 @@ declaraciones
     | declaracion                    {printf("declaraciones: declaracion  \n");}
     ;
 declaracion
-    : lista_variables DP lista_tipos_datos {printf("declaracion: lista_variables DP lista_tipos_datos \n");}
+    : lista_variables DP lista_tipos_datos {verificarBalanceo() ; printf("declaracion: lista_variables DP lista_tipos_datos \n");}
     ;
 lista_tipos_datos
-    : lista_tipos_datos CO tipo_dato {printf(" lista_tipos_datos   : lista_tipos_datos CO tipo_dato \n");}
-    | tipo_dato {printf(" lista_tipos_datos   : tipo_dato \n");}
+    : lista_tipos_datos CO tipo_dato {longListaTipos++; printf(" lista_tipos_datos   : lista_tipos_datos CO tipo_dato \n");}
+    | tipo_dato {longListaTipos++; printf(" lista_tipos_datos   : tipo_dato \n");}
     ;
 lista_variables
-    : lista_variables CO ID { printf("lista_variables     : lista_variables CO ID \n");}
-    | ID { printf("lista_variables     : ID \n");}
+    : lista_variables CO ID { longListaId++; printf("lista_variables     : lista_variables CO ID: %s\n", yylval.s);}
+    | ID { longListaId++; printf("lista_variables     : ID: %s\n", yylval.s);}
     ;
 tipo_dato
     : STRING { printf("tipo_dato  : STRING \n");}
@@ -184,7 +190,7 @@ int validarBin(char binario[]){
 int validarString(char cadena[]) {
     char msg[100];
     int longitud = strlen(cadena);
-    
+
     if( strlen(cadena) > 32){ //en lugar de 30 verifica con 32 porque el string viene entre comillas
         sprintf(msg, "ERROR: Cadena %s demasiado larga. Maximo 30 caracteres\n", cadena);
         yyerror(msg);
@@ -210,6 +216,13 @@ int validarString(char cadena[]) {
     return 0;
 }
 
+int verificarBalanceo(){
+    if(longListaTipos != longListaId){
+        yyerror("La declaracion de variables debe tener mismo numero de miembros a cada lado del : ");
+    }
+    longListaTipos = longListaId = 0;
+    return 0;
+}
 
 
 

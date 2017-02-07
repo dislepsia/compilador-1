@@ -13,7 +13,7 @@
 ## Tasklist
 
 ### Urgentes y en orden
-1. Verificar balanceo en las asignaciones.
+1. ~~Verificar balanceo en las asignaciones.~~
 2. Implentar tabla de símbolos
 3. En las declaraciones guardar tipo de variable del id en ts.
 4. Guardar tipo constantes en ts.
