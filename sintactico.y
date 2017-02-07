@@ -22,25 +22,12 @@ extern char *yytext;
 
 
 %%
+raiz: programa {printf("Compila OK \n");}
+    ;
 programa
-    : sentencias        {printf("Compila OK \n");}
-    ;
-sentencias
-    : sentencias sentencia  {printf("sentencias  : sentencias sentencia\n");}
-    | sentencia             {printf("sentencias  : sentencia \n");}
-    ;
-sentencia
-    : asignacion FL         {printf("sentencias  : asignacion FL\n");}
-    | iteracion             {printf("sentencias  : iteracion \n");}
-    | decision              {printf("sentencias  : decision\n");}
-    | bloque_dec            {printf("sentencias  : sentencias bloque_dec\n");}
-    ;
-decision
-   : IF P_A condicion P_C L_A sentencias L_C {printf("decision   : IF P_A condicion P_C L_A sentencias L_C\n");}
-   | IF P_A condicion P_C L_A sentencias L_C ELSE L_A sentencias L_C {printf("decision   : IF P_A condicion P_C L_A sentencias L_C ELSE L_A sentencias L_C\n");}
-   ;
-iteracion
-    : WHILE P_A condicion P_C L_A sentencias L_C {printf("iteracion  : WHILE P_A condicion P_C L_A sentencias\n");}
+    :bloque_dec sentencias {printf("programa : bloque_dec sentencias");}
+    | sentencias    {printf("programa : sentencias \n");}
+    | bloque_dec {printf("programa: bloque_dec \n");}
     ;
 bloque_dec
     : DEFVAR declaraciones ENDDEF {printf(" bloque_dec : DEFVAR declaraciones ENDDEF \n ");}
@@ -64,6 +51,23 @@ tipo_dato
     : STRING { printf("tipo_dato  : STRING \n");}
     | FLOAT  { printf("tipo_dato  : FLOAT \n");}
     | INT    { printf("tipo_dato  : INT \n");}
+    ;
+sentencias
+    : sentencias sentencia  {printf("sentencias  : sentencias sentencia\n");}
+    | sentencia             {printf("sentencias  : sentencia \n");}
+    ;
+sentencia
+    : asignacion FL         {printf("sentencias  : asignacion FL\n");}
+    | iteracion             {printf("sentencias  : iteracion \n");}
+    | decision              {printf("sentencias  : decision\n");}
+    | bloque_dec            {printf("sentencias  : sentencias bloque_dec\n");}
+    ;
+decision
+   : IF P_A condicion P_C L_A sentencias L_C {printf("decision   : IF P_A condicion P_C L_A sentencias L_C\n");}
+   | IF P_A condicion P_C L_A sentencias L_C ELSE L_A sentencias L_C {printf("decision   : IF P_A condicion P_C L_A sentencias L_C ELSE L_A sentencias L_C\n");}
+   ;
+iteracion
+    : WHILE P_A condicion P_C L_A sentencias L_C {printf("iteracion  : WHILE P_A condicion P_C L_A sentencias\n");}
     ;
 asignacion
     : ID ASIG expresion              {printf("asignacion : ID ASIG expresion \n");}
