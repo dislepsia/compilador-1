@@ -5,6 +5,23 @@
 extern int yylineno;
 extern char *yytext;
 
+int yyerror() {
+    printf("llama a yyerror del bison");
+    return 0;
+};
+
+
+/* funciones para validacion (cabeceras)*/
+
+int validarInt(char entero[]){
+
+}
+
+
+/* fin de funciones para validacion */
+
+
+
 %}
 
 %union{
@@ -99,6 +116,13 @@ factor
     ;
 
 %%
+
+
+/* funciones para validacion */
+
+/* fin de funciones para validacion */
+
+
 
 int main(int argc,char *argv[]){
     yyparse();
