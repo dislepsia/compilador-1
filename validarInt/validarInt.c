@@ -1,17 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+int yylineno = 0; //esto en lo da flex en realidad, es el numero de línea del error
+                    //acá se lo pongo para que el yyerror sea compatible con el nuestro
+char yytext[30]; //lo mismo que lo de arriba
 
-int yyerror() {
-    printf("llama a yyerror del bison\n");
-    return 0;
-};
+int yyerror(char *msg){
+    fprintf(stderr, "At line %d %s in text: %s\n", yylineno, msg, yytext);
+    exit(1);
+}
 
 int validarInt(char entero[]) {
     int casteado = atoi(entero);
+    char msg[100];
     if(casteado < -32768 || casteado > 32767) {
-        printf(" ERROR: Entero %d fuera de rango. Debe estar entre [-32768; 32767]\n", casteado);
-        yyerror();
+        sprintf(msg, "ERROR: Entero %d fuera de rango. Debe estar entre [-32768; 32767]\n", casteado);
+        yyerror(msg);
     } else {
         //guardarenTS
         //printf solo para pruebas:
@@ -21,6 +25,7 @@ int validarInt(char entero[]) {
     }
 
 }
+
 
 
 int main(){

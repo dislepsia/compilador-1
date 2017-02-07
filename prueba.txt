@@ -2,7 +2,7 @@ DEFVAR
 ab : float
 v1,v2 : float, string
 ENDDEF
-a:= 12;
+a:= 326000;
 DEFVAR
 ab : float
 v1,v2 : float, string

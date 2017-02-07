@@ -5,17 +5,11 @@
 extern int yylineno;
 extern char *yytext;
 
-int yyerror() {
-    printf("llama a yyerror del bison");
-    return 0;
-};
-
 
 /* funciones para validacion (cabeceras)*/
 
-int validarInt(char entero[]){
+int validarInt(char entero[]);
 
-}
 
 
 /* fin de funciones para validacion */
@@ -109,7 +103,7 @@ termino
 factor
     : P_A expresion P_C              {printf("factor : P_A expresion P_C  \n");}
     | OP_RES factor                  {printf("factor : OP_RES factor      \n");}
-    | ENTERO                         {printf("factor : ENTERO: %s             \n" , yylval.s);}
+    | ENTERO                         { validarInt(yylval.s) ;printf("factor : ENTERO: %s             \n" , yylval.s);}
     | REAL                           {printf("factor : REAL: %s               \n" , yylval.s);}
     | BINA                           {printf("factor : BINA: %s               \n" , yylval.s);}
     | ID                             {printf("factor : ID: %s                \n", yylval.s);}
@@ -119,6 +113,22 @@ factor
 
 
 /* funciones para validacion */
+
+int validarInt(char entero[]) {
+    int casteado = atoi(entero);
+    char msg[100];
+    if(casteado < -32768 || casteado > 32767) {
+        sprintf(msg, "ERROR: Entero %d fuera de rango. Debe estar entre [-32768; 32767]\n", casteado);
+        yyerror(msg);
+    } else {
+        //guardarenTS
+        //printf solo para pruebas:
+        //printf("Entero ok! %d \n", casteado);
+        return 0;
+
+    }
+
+}
 
 /* fin de funciones para validacion */
 
