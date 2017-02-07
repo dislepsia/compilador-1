@@ -1,4 +1,4 @@
 lex.yy.c
 *exe
-*tab*
+y.tab.c
 y.output
