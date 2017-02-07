@@ -11,7 +11,7 @@
 SINCERO         [1-9]
 DIGITO			[0-9]
 LETRA			[a-zA-Z]
-PREFBIN        0b|0B|Ob|OB|ob|oB
+PREFBIN        Ob|OB
 POSTBIN        [01]
 BINA            {PREFBIN}{POSTBIN}+
 ENTERO          -?{SINCERO}+{DIGITO}*|0
