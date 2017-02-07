@@ -3,3 +3,7 @@ ab : float
 v1,v2 : float, string
 ENDDEF
 a:= 12;
+DEFVAR
+ab : float
+v1,v2 : float, string
+ENDDEF

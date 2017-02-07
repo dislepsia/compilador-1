@@ -60,7 +60,6 @@ sentencia
     : asignacion FL         {printf("sentencias  : asignacion FL\n");}
     | iteracion             {printf("sentencias  : iteracion \n");}
     | decision              {printf("sentencias  : decision\n");}
-    | bloque_dec            {printf("sentencias  : sentencias bloque_dec\n");}
     ;
 decision
    : IF P_A condicion P_C L_A sentencias L_C {printf("decision   : IF P_A condicion P_C L_A sentencias L_C\n");}
