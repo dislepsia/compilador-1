@@ -26,12 +26,26 @@ int validarInt(char entero[]) {
 
 }
 
+int validarBin(char binario[]){
+    char *ptr ;//puntero que misteriosamente usa esta funcion
+    long casteado = strtol(binario+2, &ptr, 2);
+
+    char msg[100];
+    if(casteado < -32768 || casteado > 32767) {
+        sprintf(msg, "ERROR: Entero %d fuera de rango. Debe estar entre [-32768; 32767]\n", casteado);
+        yyerror(msg);
+    } else {
+        //guardarenTS
+        //printf solo para pruebas:
+    //    printf("Binario ok! %d \n", casteado);
+        return 0;
+
+    }
+
+}
 
 
 int main(){
-    validarInt("-32768");
-    validarInt("32767");
-    validarInt("-32769");
-    validarInt("32768");
+    validarBin("0b10");
     return 0;
 }

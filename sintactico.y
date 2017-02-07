@@ -13,6 +13,7 @@ extern char *yytext;
 
 int validarInt(char entero[]);
 int validarFloat(char flotante[]);
+int validarBin(char binario[]);
 
 
 /* fin de funciones para validacion */
@@ -108,7 +109,7 @@ factor
     | OP_RES factor                  {printf("factor : OP_RES factor      \n");}
     | ENTERO                         { validarInt(yylval.s) ;printf("factor : ENTERO: %s             \n" , yylval.s);}
     | REAL                           {validarFloat(yylval.s);printf("factor : REAL: %s               \n" , yylval.s);}
-    | BINA                           {printf("factor : BINA: %s               \n" , yylval.s);}
+    | BINA                           {validarBin(yylval.s);printf("factor : BINA: %s               \n" , yylval.s);}
     | ID                             {printf("factor : ID: %s                \n", yylval.s);}
     ;
 
@@ -150,6 +151,24 @@ int validarFloat(char flotante[]) {
     }
 
 }
+
+int validarBin(char binario[]){
+    char *ptr ;//puntero que misteriosamente usa esta funcion
+    long casteado = strtol(binario+2, &ptr, 2);
+
+    char msg[100];
+    if(casteado < -32768 || casteado > 32767) {
+        sprintf(msg, "ERROR: Entero %d fuera de rango. Debe estar entre [-32768; 32767]\n", casteado);
+        yyerror(msg);
+    } else {
+        //guardarenTS
+        //printf solo para pruebas:
+    //    printf("Binario ok! %d \n", casteado);
+        return 0;
+
+    }
+}
+
 
 
 /* fin de funciones para validacion */
