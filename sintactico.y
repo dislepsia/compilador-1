@@ -14,6 +14,7 @@ extern char *yytext;
 int validarInt(char entero[]);
 int validarFloat(char flotante[]);
 int validarBin(char binario[]);
+int validarString(char cadena[]);
 
 
 /* fin de funciones para validacion */
@@ -118,10 +119,10 @@ factor
     ;
 
 constante
-    : ENTERO                         {validarInt(yylval.s) ;printf("factor : ENTERO: %s             \n" , yylval.s);}
-    | REAL                           {validarFloat(yylval.s);printf("factor : REAL: %s               \n" , yylval.s);}
-    | BINA                           {validarBin(yylval.s);printf("factor : BINA: %s               \n" , yylval.s);}
-    | STRING_CONST
+    : ENTERO                         {validarInt(yylval.s) ;printf("constante : ENTERO: %s\n" , yylval.s);}
+    | REAL                           {validarFloat(yylval.s);printf("constante : REAL: %s  \n" , yylval.s);}
+    | BINA                           {validarBin(yylval.s);printf("constante : BINA: %s\n" , yylval.s);}
+    | STRING_CONST                   {validarString(yylval.s);printf("constante : STRING \n" , yylval.s);}
     ;
 %%
 
@@ -178,6 +179,37 @@ int validarBin(char binario[]){
 
     }
 }
+
+
+int validarString(char cadena[]) {
+    char msg[100];
+    int longitud = strlen(cadena);
+    
+    if( strlen(cadena) > 32){ //en lugar de 30 verifica con 32 porque el string viene entre comillas
+        sprintf(msg, "ERROR: Cadena %s demasiado larga. Maximo 30 caracteres\n", cadena);
+        yyerror(msg);
+    }
+    char sincomillas[31];
+    int i;
+    for(i=0; i< longitud - 2 ; i++) {
+            sincomillas[i]=cadena[i+1];
+    }
+    sincomillas[i]='\0';
+    //guardarenTS();
+/*
+    // Bloque para debug
+    printf("***************************\n");
+    printf("%d\n",strlen(sincomillas));
+    for ( i = 0; i < strlen(sincomillas)+1; i++) {
+        printf("%d : %c , %d \n",i,sincomillas[i],sincomillas[i]);
+    }
+    printf("***************************\n");
+*/
+
+    //guardarenTS;
+    return 0;
+}
+
 
 
 
