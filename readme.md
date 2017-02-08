@@ -14,8 +14,8 @@
 
 ### Urgentes y en orden
 1. ~~Verificar balanceo en las asignaciones.~~
-2. Implentar tabla de símbolos
-3. En las declaraciones guardar tipo de variable del id en ts.
+2. ~~Implentar tabla de símbolos~~
+3. ~~En las declaraciones guardar tipo de variable del id en ts.~~
 4. Guardar tipo constantes en ts.
 5. Validar tipo en las asignaciones de enteros.
 6. Validar tipo en las asignaciones de floats.
