@@ -25,6 +25,19 @@ int verificarBalanceo();
 
 /* fin de funciones para validacion */
 
+/* funciones para que el bloque DecVar cargue la tabla de símbolos */
+
+char varTypeArray[2][100][50];
+int idPos = 0;
+int typePos = 0;
+
+void collectId (char *id);
+void collectType (char *type);
+void consolidateIdType();
+
+/* fin de funciones para que el bloque DecVar cargue la tabla de símbolos */
+
+
 
 
 %}
@@ -229,6 +242,28 @@ int verificarBalanceo(){
 /* fin de funciones para validacion */
 
 
+/* funciones para que el bloque DecVar cargue la tabla de símbolos */
+
+void collectId (char *id) {
+    strcpy(varTypeArray[0][idPos++],id);
+}
+
+void collectType (char *type){
+    strcpy(varTypeArray[1][typePos++],type);
+
+}
+
+void consolidateIdType() {
+    printf("Consolidando\n");
+    int i;
+    for(i=0; i < idPos; i++ ) {
+        printf("%s %s\n",varTypeArray[0][i],varTypeArray[1][i]);
+    }
+    idPos=0;
+    typePos=0;
+}
+
+/* fin de funciones para que el bloque DecVar cargue la tabla de símbolos */
 
 int main(int argc,char *argv[]){
     yyparse();
