@@ -65,7 +65,7 @@ programa
     | bloque_dec {printf("programa: bloque_dec \n");}
     ;
 bloque_dec
-    : DEFVAR declaraciones ENDDEF {printf(" bloque_dec : DEFVAR declaraciones ENDDEF \n ");}
+    : DEFVAR declaraciones ENDDEF {consolidateIdType();printf(" bloque_dec : DEFVAR declaraciones ENDDEF \n ");}
     ;
 declaraciones
     : declaraciones declaracion    {printf("declaraciones: declaraciones declaracion \n");}
@@ -76,16 +76,16 @@ declaracion
     ;
 lista_tipos_datos
     : lista_tipos_datos CO tipo_dato {longListaTipos++; printf(" lista_tipos_datos   : lista_tipos_datos CO tipo_dato \n");}
-    | tipo_dato {longListaTipos++; printf(" lista_tipos_datos   : tipo_dato \n");}
+    | tipo_dato {longListaTipos++;  printf(" lista_tipos_datos   : tipo_dato \n");}
     ;
 lista_variables
-    : lista_variables CO ID { longListaId++; printf("lista_variables     : lista_variables CO ID: %s\n", yylval.s);}
-    | ID { longListaId++; printf("lista_variables     : ID: %s\n", yylval.s);}
+    : lista_variables CO ID { longListaId++; collectId(yylval.s);  printf("lista_variables     : lista_variables CO ID: %s\n", yylval.s);}
+    | ID { longListaId++; collectId(yylval.s); printf("lista_variables     : ID: %s\n", yylval.s);}
     ;
 tipo_dato
-    : STRING { printf("tipo_dato  : STRING \n");}
-    | FLOAT  { printf("tipo_dato  : FLOAT \n");}
-    | INT    { printf("tipo_dato  : INT \n");}
+    : STRING { collectType("string") ; printf("tipo_dato  : STRING \n");}
+    | FLOAT  { collectType("float") ;printf("tipo_dato  : FLOAT \n");}
+    | INT    { collectType("int") ;printf("tipo_dato  : INT \n");}
     ;
 sentencias
     : sentencias sentencia  {printf("sentencias  : sentencias sentencia\n");}
