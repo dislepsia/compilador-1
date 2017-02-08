@@ -1,0 +1,6 @@
+nombre,tipo,valor,alias,longitud,limite
+_a,string,a,,1,0
+_b,int,b,,1,0
+_c,float,c,,1,0
+_d,string,d,,1,0
+_e,int,e,,1,0

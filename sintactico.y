@@ -8,6 +8,33 @@
 extern int yylineno;
 extern char *yytext;
 
+/* funciones tabla de simbolos */
+
+typedef struct symbol {
+    char nombre[50];
+    char tipo[10];
+    char valor[100];
+    char alias[50];
+    int longitud;
+    int limite;
+} symbol;
+
+
+symbol nullSymbol;
+symbol symbolTable[1000];
+int pos_st = 0;
+
+// el valor ! representa al simbolo nulo.
+
+
+// helpers
+char *downcase(char *p);
+char *prefix_(char *p);
+int searchSymbol(char key[]);
+int saveSymbol(char nombre[], char tipo[] );
+symbol getSymbol(char nombre[]);
+void symbolTableToExcel(symbol table[],char * ruta);
+/* fin de funciones tabla de simbolos */
 
 /* funciones para validacion (cabeceras)*/
 
@@ -37,33 +64,6 @@ void consolidateIdType();
 
 /* fin de funciones para que el bloque DecVar cargue la tabla de símbolos */
 
-/* funciones tabla de simbolos */
-
-typedef struct symbol {
-    char nombre[50];
-    char tipo[10];
-    char valor[100];
-    char alias[50];
-    int longitud;
-    int limite;
-} symbol;
-
-
-symbol nullSymbol;
-symbol symbolTable[1000];
-int pos_st = 0;
-
-// el valor ! representa al simbolo nulo.
-
-
-// helpers
-char *downcase(char *p);
-char *prefix_(char *p);
-int searchSymbol(char key[]);
-int saveSymbol(char nombre[], char tipo[] );
-symbol getSymbol(char nombre[]);
-
-/* fin de funciones tabla de simbolos */
 
 
 
@@ -84,7 +84,7 @@ symbol getSymbol(char nombre[]);
 
 
 %%
-raiz: programa {printf("Compila OK \n");}
+raiz: programa { printf("Compila OK \n"); symbolTableToExcel(symbolTable,"salida.csv");}
     ;
 programa
     :bloque_dec sentencias {printf("programa : bloque_dec sentencias \n");}
@@ -281,10 +281,10 @@ void collectType (char *type){
 }
 
 void consolidateIdType() {
-    printf("Consolidando\n");
+    printf("Guardando data en tabla de simbolos\n");
     int i;
     for(i=0; i < idPos; i++ ) {
-        printf("%s %s\n",varTypeArray[0][i],varTypeArray[1][i]);
+        saveSymbol(varTypeArray[0][i],varTypeArray[1][i]);
     }
     idPos=0;
     typePos=0;
@@ -321,7 +321,6 @@ int searchSymbol(char key[]){
     prefix_(downcase(mynombre));
     int i;
     for ( i = 0;  i < pos_st ; i++) {
-        printf("[%d]**%s--->%s\n",llamada,symbolTable[i].nombre,mynombre);
         if(strcmp(symbolTable[i].nombre, mynombre ) == 0){
             return i;
         }
@@ -356,6 +355,22 @@ symbol getSymbol(char nombre[]){
     int pos = searchSymbol(nombre);
     if(pos >= 0) return symbolTable[pos];
     return nullSymbol;
+}
+
+void symbolTableToExcel(symbol table[],char * ruta)
+{
+//Declaracion de variables
+int i;
+//Definicion del archivo de salida y su cabecera
+FILE  *ptr = fopen(ruta, "w");
+fprintf (ptr,"nombre,tipo,valor,alias,longitud,limite\n");
+//Recorrido de la symbol table, corta con el caracter @
+//while(strncmp(table[i].nombre,"@",1)!=0)
+for(i=0;i < pos_st ;i++) {
+    fprintf(ptr, "%s,%s,%s,%s,%d,%d\n",table[i].nombre,table[i].tipo,table[i].valor,table[i].alias,table[i].longitud,table[i].limite);
+}
+//Fin
+fclose(ptr);
 }
 
 

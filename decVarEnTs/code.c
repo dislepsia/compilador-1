@@ -23,6 +23,7 @@ void consolidateIdType() {
     }
     idPos=0;
     typePos=0;
+    
 }
 
 

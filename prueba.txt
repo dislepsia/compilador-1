@@ -1,4 +1,4 @@
 DEFVAR
 a, b : string, int
-c, d : float, string
+c, d , e: float, string, int
 ENDDEF
