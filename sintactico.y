@@ -8,6 +8,8 @@
 extern int yylineno;
 extern char *yytext;
 
+
+
 /* funciones tabla de simbolos */
 
 typedef struct symbol {
@@ -23,6 +25,11 @@ typedef struct symbol {
 symbol nullSymbol;
 symbol symbolTable[1000];
 int pos_st = 0;
+
+// symbolo auxiliar
+symbol auxSymbol;
+
+
 
 // el valor ! representa al simbolo nulo.
 
@@ -164,7 +171,8 @@ void consolidateIdType();
 
 
 %token IF ELSE WHILE DEFVAR ENDDEF PERCENT INLIST
-%token REAL BINA ENTERO ID STRING_CONST
+%token REAL BINA ENTERO STRING_CONST
+%token <s> ID
 %token FLOAT INT STRING
 %token P_A P_C L_A L_C FL DP CO
 %token OP_CONCAT OP_SUM OP_RES OP_DIV OP_MUL MOD DIV
@@ -220,13 +228,13 @@ iteracion
     : WHILE P_A condicion P_C L_A sentencias L_C {printf("iteracion  : WHILE P_A condicion P_C L_A sentencias\n");}
     ;
 asignacion
-    : ID ASIG expresion              {printf("asignacion : ID ASIG expresion \n");}
-    | ID ASIG concatenacion          {printf("asignacion : ID ASIG concatenacion \n");}
+    : ID ASIG expresion              {printf("acá hay que validar asignacion : ID ASIG expresion \n");}
+    | ID ASIG concatenacion          {printf("acá hay que validar asignacion : ID ASIG concatenacion \n");}
     ;
 concatenacion
-    : ID OP_CONCAT ID                  {printf("acá hay que validar");}
-    | ID OP_CONCAT constanteString     {printf("acá hay que validar");}
-    | constanteString OP_CONCAT ID     {printf("acá hay que validar");}
+    : ID OP_CONCAT ID                  {auxSymbol = getSymbol($1); if(strcmp(auxSymbol.tipo,"string")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;auxSymbol = getSymbol($3); if(strcmp(auxSymbol.tipo,"string")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;printf("acá hay que validar concatenacion: ID OP_CONCAT ID");}
+    | ID OP_CONCAT constanteString     {auxSymbol = getSymbol($1); if(strcmp(auxSymbol.tipo,"string")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;printf("acá hay que validar concatenacion: ID OP_CONCAT constanteString");}
+    | constanteString OP_CONCAT ID     {auxSymbol = getSymbol($3); if(strcmp(auxSymbol.tipo,"string")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;printf("acá hay que validar concatenacion: constanteString OP_CONCAT ID");}
     | constanteString OP_CONCAT constanteString
     | constanteString
     ;
@@ -251,7 +259,7 @@ termino
     ;
 factor
     : P_A expresion P_C              {printf("factor : P_A expresion P_C  \n");}
-    | ID                             {printf("factor : ID: %s                \n", yylval.s);}
+    | ID                             {printf("factor : ID: %s\n", yylval.s);}
     | constanteNumerica
     ;
 

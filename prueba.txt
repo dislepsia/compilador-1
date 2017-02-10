@@ -1,7 +1,4 @@
 DEFVAR
-a, brian : string, int
-carlos, daniela , esterca: float, string, int
+a: string
 ENDDEF
-a := "miCadena";
-b := 45 + 2;
-c := Ob1000;
+c := a ++ a;
