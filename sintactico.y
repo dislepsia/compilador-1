@@ -225,9 +225,10 @@ asignacion
     ;
 concatenacion
     : ID OP_CONCAT ID
-    | ID OP_CONCAT constante
-    | constante OP_CONCAT ID
-    | constante OP_CONCAT constante
+    | ID OP_CONCAT constanteString
+    | constanteString OP_CONCAT ID
+    | constanteString OP_CONCAT constanteString
+    | constanteString
     ;
 condicion
     : expresion CMP_MAY expresion    {printf("condicion  : expresion CMP_MAY expresion \n");}
@@ -251,17 +252,20 @@ termino
 factor
     : P_A expresion P_C              {printf("factor : P_A expresion P_C  \n");}
     | ID                             {printf("factor : ID: %s                \n", yylval.s);}
-    | constante
+    | constanteNumerica
     ;
 
-constante
+constanteNumerica
     : ENTERO                         {validarInt(yylval.s) ;printf("constante : ENTERO: %s\n" , yylval.s);}
     | REAL                           {validarFloat(yylval.s);printf("constante : REAL: %s  \n" , yylval.s);}
     | BINA                           {validarBin(yylval.s);printf("constante : BINA: %s\n" , yylval.s);}
-    | STRING_CONST                   {validarString(yylval.s);printf("constante : STRING \n" , yylval.s);}
+    ;
+constanteString
+    : STRING_CONST                   {validarString(yylval.s);printf("constante : STRING \n" , yylval.s);}
     ;
 %%
 
+// |
 
 /* funciones para validacion */
 

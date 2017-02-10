@@ -1,4 +1,5 @@
 DEFVAR
-inti, brian : string, int
+a, brian : string, int
 carlos, daniela , esterca: float, string, int
 ENDDEF
+a := "hola" ++ "hola";
