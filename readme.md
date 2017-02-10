@@ -16,11 +16,11 @@
 1. ~~Verificar balanceo en las asignaciones.~~
 2. ~~Implentar tabla de símbolos~~
 3. ~~En las declaraciones guardar tipo de variable del id en ts.~~
-4. Guardar tipo constantes en ts.
-5. Validar tipo en las asignaciones de enteros.
-6. Validar tipo en las asignaciones de floats.
-7. Validar tipo en las asignaciones de strings.
-8. Validar tipo en las operaciones (que el + no pueda sumar strings, y el que el ++ no sume números, entre otros)
+4. Modificar gramática para no tener que validar asignación ni concatenación.
+5. Guardar tipos constantes en ts.
+6. Agregar printf a las acciones que no las tengan.
+7. Enviar lo que está a la profesora.
+8. Pasar a siguiente etapa: generación de código con polaca inversa.
 
 ### No prioritarias
 
@@ -29,4 +29,4 @@
 3. ~~Agregar concatenacion de strings a la gramatica~~
 4. Agregar write a la gramatica
 5. ~~Validar constantes strings~~
-6. Agregar funciones especiales a la gramática
+6. ~~Agregar funciones especiales a la gramática~~

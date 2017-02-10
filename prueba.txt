@@ -1,4 +1,4 @@
 DEFVAR
-a, b : string, int
-c, d , e: float, string, int
+inti, brian : string, int
+carlos, daniela , esterca: float, string, int
 ENDDEF
