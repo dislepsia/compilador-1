@@ -28,7 +28,7 @@ int pos_st = 0;
 
 // symbolo auxiliar
 symbol auxSymbol;
-
+symbol auxSymbol2;
 
 
 // el valor ! representa al simbolo nulo.
@@ -228,8 +228,9 @@ iteracion
     : WHILE P_A condicion P_C L_A sentencias L_C {printf("iteracion  : WHILE P_A condicion P_C L_A sentencias\n");}
     ;
 asignacion
-    : ID ASIG expresion              {printf("acá hay que validar asignacion : ID ASIG expresion \n");}
+    : ID ASIG expresion              {auxSymbol = getSymbol($1); if(strcmp(auxSymbol.tipo,"float")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;printf("acá hay que validar asignacion : ID ASIG expresion \n");}
     | ID ASIG concatenacion          {auxSymbol = getSymbol($1); if(strcmp(auxSymbol.tipo,"string")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;printf("acá hay que validar asignacion : ID ASIG concatenacion \n");}
+    | ID ASIG ID                     {auxSymbol = getSymbol($1); auxSymbol2 = getSymbol($3); if(strcmp(auxSymbol.tipo,auxSymbol2.tipo)!=0 ){ auxSymbol = auxSymbol2 =nullSymbol; yyerror("Tipos incompatibles");} ;}
     ;
 concatenacion
     : ID OP_CONCAT ID                  {auxSymbol = getSymbol($1); if(strcmp(auxSymbol.tipo,"string")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;auxSymbol = getSymbol($3); if(strcmp(auxSymbol.tipo,"string")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;printf("acá hay que validar concatenacion: ID OP_CONCAT ID");}
@@ -259,7 +260,7 @@ termino
     ;
 factor
     : P_A expresion P_C              {printf("factor : P_A expresion P_C  \n");}
-    | ID                             {printf("factor : ID: %s\n", yylval.s);}
+    | ID                             {auxSymbol = getSymbol($1); if(strcmp(auxSymbol.tipo,"float")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;printf("factor : ID: %s\n", yylval.s);}
     | constanteNumerica
     ;
 
