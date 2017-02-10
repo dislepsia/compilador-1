@@ -229,7 +229,7 @@ iteracion
     ;
 asignacion
     : ID ASIG expresion              {printf("acá hay que validar asignacion : ID ASIG expresion \n");}
-    | ID ASIG concatenacion          {printf("acá hay que validar asignacion : ID ASIG concatenacion \n");}
+    | ID ASIG concatenacion          {auxSymbol = getSymbol($1); if(strcmp(auxSymbol.tipo,"string")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;printf("acá hay que validar asignacion : ID ASIG concatenacion \n");}
     ;
 concatenacion
     : ID OP_CONCAT ID                  {auxSymbol = getSymbol($1); if(strcmp(auxSymbol.tipo,"string")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;auxSymbol = getSymbol($3); if(strcmp(auxSymbol.tipo,"string")!=0 ){ auxSymbol = nullSymbol; yyerror("Tipos incompatibles");} ;printf("acá hay que validar concatenacion: ID OP_CONCAT ID");}

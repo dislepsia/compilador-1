@@ -1,4 +1,5 @@
 DEFVAR
 a: string
+c: string
 ENDDEF
 c := a ++ a;
