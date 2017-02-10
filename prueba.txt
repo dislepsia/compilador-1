@@ -2,4 +2,6 @@ DEFVAR
 a, brian : string, int
 carlos, daniela , esterca: float, string, int
 ENDDEF
-a := "hola" ++ "hola";
+a := "miCadena";
+b := 45 + 2;
+c := Ob1000;

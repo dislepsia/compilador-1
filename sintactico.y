@@ -120,7 +120,7 @@ fclose(p);
 char *downcase(char *p);
 char *prefix_(char *p);
 int searchSymbol(char key[]);
-int saveSymbol(char nombre[], char tipo[] );
+int saveSymbol(char nombre[], char tipo[], char valor[] );
 symbol getSymbol(char nombre[]);
 void symbolTableToExcel(symbol table[],char * ruta);
 /* fin de funciones tabla de simbolos */
@@ -224,9 +224,9 @@ asignacion
     | ID ASIG concatenacion          {printf("asignacion : ID ASIG concatenacion \n");}
     ;
 concatenacion
-    : ID OP_CONCAT ID
-    | ID OP_CONCAT constanteString
-    | constanteString OP_CONCAT ID
+    : ID OP_CONCAT ID                  {printf("acá hay que validar");}
+    | ID OP_CONCAT constanteString     {printf("acá hay que validar");}
+    | constanteString OP_CONCAT ID     {printf("acá hay que validar");}
     | constanteString OP_CONCAT constanteString
     | constanteString
     ;
@@ -277,6 +277,7 @@ int validarInt(char entero[]) {
         yyerror(msg);
     } else {
         //guardarenTS
+        saveSymbol(entero,"cFloat", NULL);
         //printf solo para pruebas:
         //printf("Entero ok! %d \n", casteado);
         return 0;
@@ -294,6 +295,7 @@ int validarFloat(char flotante[]) {
         sprintf(msg, "ERROR: Float %f fuera de rango. Debe estar entre [1.17549e-38; 3.40282e38]\n", casteado);
         yyerror(msg);
     } else {
+        saveSymbol(flotante,"cFloat", NULL);
         //guardarenTS
         //printf solo para pruebas:
     //    printf("Float ok! %f \n", casteado);
@@ -304,14 +306,17 @@ int validarFloat(char flotante[]) {
 }
 
 int validarBin(char binario[]){
+    char binFloat[50];
     char *ptr ;//puntero que misteriosamente usa esta funcion
     long casteado = strtol(binario+2, &ptr, 2);
-
+    sprintf(binFloat,"%d",casteado);
+    printf ("############### %s\n",binFloat);
     char msg[100];
     if(casteado < -32768 || casteado > 32767) {
         sprintf(msg, "ERROR: Entero %d fuera de rango. Debe estar entre [-32768; 32767]\n", casteado);
         yyerror(msg);
     } else {
+        saveSymbol(binario,"cFloat", binFloat);
         //guardarenTS
         //printf solo para pruebas:
     //    printf("Binario ok! %d \n", casteado);
@@ -336,6 +341,7 @@ int validarString(char cadena[]) {
     }
     sincomillas[i]='\0';
     //guardarenTS();
+    saveSymbol(sincomillas,"cString", NULL);
 /*
     // Bloque para debug
     printf("***************************\n");
@@ -378,7 +384,7 @@ void consolidateIdType() {
     printf("Guardando data en tabla de simbolos\n");
     int i;
     for(i=0; i < idPos; i++ ) {
-        saveSymbol(varTypeArray[0][i],varTypeArray[1][i]);
+        saveSymbol(varTypeArray[0][i],varTypeArray[1][i], NULL);
     }
     idPos=0;
     typePos=0;
@@ -423,7 +429,7 @@ int searchSymbol(char key[]){
     return -1;
 }
 
-int saveSymbol(char nombre[], char tipo[] ){
+int saveSymbol(char nombre[], char tipo[], char valor[] ){
     char mynombre[100];
     char type[10];
     strcpy(type,tipo);
@@ -437,7 +443,12 @@ int saveSymbol(char nombre[], char tipo[] ){
     symbol newSymbol;
     strcpy(newSymbol.nombre, prefix_(downcase(mynombre)));
     strcpy(newSymbol.tipo, type);
-    strcpy(newSymbol.valor, nombre);
+    if (valor == NULL){
+        strcpy(newSymbol.valor, nombre);
+    } else {
+        strcpy(newSymbol.valor, valor);
+    }
+
     //strcpy(newSymbol.alias, alias);
     newSymbol.longitud = strlen(nombre);
     symbolTable[use_pos] = newSymbol;
