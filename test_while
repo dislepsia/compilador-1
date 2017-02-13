@@ -1,0 +1,20 @@
+DEFVAR
+a: int
+ENDDEF
+a := 20;
+
+while(a<22)
+{
+a := a+2;
+}
+ 
+while(c<22)
+{
+	c := c+2;
+	while(a<22)
+	{
+		a := a+2;
+		c := c+2;
+	}
+}
+
