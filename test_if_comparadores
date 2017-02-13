@@ -1,0 +1,60 @@
+DEFVAR
+a: float
+c: string
+ENDDEF
+c :=  "hola" ;
+a := 20;
+
+if(a>0)
+{
+a := a+2;
+}
+
+if(a<30)
+{
+a := a+2;
+}
+
+if(a==24)
+{
+a := a+2;
+}
+
+if(a>=26)
+{
+a := a+2;
+}
+
+if(a<=28)
+{
+a := a+2;
+}
+
+if(a<0)
+{
+a := a+2;
+}
+else
+{
+a := a+2;
+}
+if(a>20)
+{
+	if(a>20)
+	{
+	a := a+2;
+	}
+	else
+	{
+	a := a+2;
+	}
+}
+else
+{
+a := a+2;
+}
+
+if(a!=20)
+{
+a := a+2;
+}
